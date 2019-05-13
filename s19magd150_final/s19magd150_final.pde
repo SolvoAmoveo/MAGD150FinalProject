@@ -12,7 +12,9 @@ Hitting backspace at any time or a button in the top left while watching any mov
 will cause it to go back to the preview menu.
 **/
 
-//Movie [] mov = new Movie [4];
+Movies [] mov = new Movies [4];
+Movie [] movie = new Movie [4];
+PImage [] thumbnail = new PImage [4];
 PImage menuBackground, shapeTexture;
 PShape menuShape;
 float u, v, uO, vO, menu, //menu determines what menu screen the user is on and what to display.
@@ -37,10 +39,14 @@ void setup() {
   v = 1;
   menu = 1;
   rectMode(CENTER);
-  //mov [0] = new Movie (this, "Trailer1.mp4");
-  //mov [1] = new Movie (this, "Trailer2.mp4");
-  //mov [2] = new Movie (this, "Trailer3.mp4");
-  //mov [3] = new Movie (this, "Trailer4.mp4");
+  for(int i = 0; i < 3; i++){
+    thumbnail[i] = new PImage();
+    movie[i] = new Movie(this, "Trailer"+(i+1)+".mp4");
+  }
+  mov [0] = new Movies (thumbnail[0], movie[0]);
+  mov [1] = new Movies (thumbnail[1], movie[1]);
+  mov [2] = new Movies (thumbnail[2], movie[2]);
+  mov [3] = new Movies (thumbnail[3], movie[3]);
 }
 
 void draw() {
@@ -115,6 +121,8 @@ void draw() {
   
 //Playing Movie  
   if(menu == 3){
+    mov[0].displayThumbnail(0,0);
+    mov[0].displayMovie(50,50);
   }
 }
 
