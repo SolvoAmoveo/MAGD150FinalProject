@@ -1,7 +1,6 @@
 /**
-Author: Jake Fuller, Avery Walker, Chris #
+Author: Jake Fuller, Avery Walker, Chris Bobholz
 Version: 0.2.1b
-
 This program is designed to be a collection of videos, in similar style to
 the menus you would see on DVDs. The first screen is a title screen that allows the user
 to click a button and navigate to anther screen where you can select a video.
@@ -12,17 +11,33 @@ Hitting backspace at any time or a button in the top left while watching any mov
 will cause it to go back to the preview menu.
 **/
 
+//Importing PDF Library along with video/sound Libraries
+import processing.pdf.*;
+import processing.video.*;
+import processing.sound.*;
+
+//Create a boolean (True or False) variable to
+//tell Processing when to start and stop saving
+//the screen information to a .pdf file.
+boolean recordScreen;
+
+//A String variable can be used to change
+//the file name of the .pdf to be saved.
+String fileName;
+
 Movies [] mov = new Movies [4];
-Movie [] movie = new Movie [4];
-PImage [] thumbnail = new PImage [4];
+Movie [] movies = new Movie [4];
 PImage menuBackground, shapeTexture;
 PShape menuShape;
-float u, v, uO, vO, menu, //menu determines what menu screen the user is on and what to display.
+float u, v, uO, vO, menu, //'menu' determines what menu screen the user is on and what to display.
 shapeRotationX, shapeRotationY;
 String title;
+int chosenMovie;
 
 void setup() {
+  surface.setTitle("MOVIE MASTER");
   size(1000, 750, P3D);
+  fileName = "movieClip";
   background(0);
   
   textureMode(NORMAL);
@@ -40,18 +55,21 @@ void setup() {
   menu = 1;
   rectMode(CENTER);
   for(int i = 0; i < 3; i++){
-    thumbnail[i] = new PImage();
-    movie[i] = new Movie(this, "Trailer"+(i+1)+".mp4");
+    movies [i] = new Movie(this, "Movie"+(i+1)+".mov");
+  //}
+  //for(int i = 0; i < 3; i++){
+    mov [i] = new Movies("Thumbnail"+(i+1)+".jpg", movies[i]);
   }
-  mov [0] = new Movies (thumbnail[0], movie[0]);
-  mov [1] = new Movies (thumbnail[1], movie[1]);
-  mov [2] = new Movies (thumbnail[2], movie[2]);
-  mov [3] = new Movies (thumbnail[3], movie[3]);
 }
 
 void draw() {
   background(0);
   fill(255, 255, 255, 0); //noFill() doesn't work?
+
+//Starts the recording
+  if (recordScreen) {
+    beginRecord(PDF, fileName + ".pdf");
+  }
 
 //Title Screen
   if(menu == 1){
@@ -114,20 +132,55 @@ void draw() {
   if(menu == 2){
     background(0);
     fill(255);
-    rect(width/3, height/2, 300, 150);
-    rect(width/1.5, height/2, 300, 150);
+    rect(width/3, height/1.5, 300, 150);
+    rect(width/1.5, height/1.5, 300, 150);
+    rect(width/3, height/3, 300, 150);
+    rect(width/1.5, height/3, 300, 150);
     //for loop
+    //mov[0].displayThumbnail(width/3,height/2,160,300,150);
+    mov[0].displayThumbnail(width/3,height/2,160,width/3-150,150);
   }
   
 //Playing Movie  
-  if(menu == 3){
-    mov[0].displayThumbnail(0,0);
-    mov[0].displayMovie(50,50);
+  if( menu == 3){
+    mov[chosenMovie].displayMovie(width,height);
+    //mov[0].displayMovie(50,50);
+    //mov[n].displayBackground();
+    //mov[0].displayMovie();
+}
+
+//Ends the recording
+  if (recordScreen) {
+    endRecord();
+    recordScreen = false;
   }
 }
 
 void mousePressed() {
-  if ( mouseX > width/6 && mouseX < width/4 && mouseY > height/2.2 && mouseY < height/1.8 ){
+  if ( mouseX > width/6 && mouseX < width/4 && mouseY > height/2.2 && mouseY < height/1.8 && menu == 1 ){
     menu = 2;
+  }
+  if ( mouseX > width/3-150 && mouseX < width/3+150 && mouseY > height/1.5-75 && mouseY < height/1.5+75 && menu == 2 ){
+    chosenMovie = 0;
+    menu = 3;
+  }
+  if ( mouseX > width/3-150 && mouseX < width/3+150 && mouseY > height/3-75 && mouseY < height/3+75 && menu == 2 ){
+    chosenMovie = 2;
+    menu = 3;
+  }
+  if ( mouseX > width/1.5-150 && mouseX < width/1.5+150 && mouseY > height/1.5-75 && mouseY < height/1.5+75 && menu == 2 ){
+    chosenMovie = 1;
+    menu = 3;
+  }
+  if ( mouseX > width/1.5-150 && mouseX < width/1.5+150 && mouseY > height/3-75 && mouseY < height/3+75 && menu == 2 ){
+    chosenMovie = 3;
+    menu = 3;
+  }
+/*
+  Turns the boolean to true, which begins
+  the recording process in draw.
+*/
+  if (mouseButton == RIGHT) {
+    recordScreen = true;
   }
 }
