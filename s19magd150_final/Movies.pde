@@ -11,16 +11,15 @@ class Movies {
     movies = movie;
   }
   
-  void displayThumbnail(float x, float y){
+  void displayThumbnail(float tx, float ty, float tz, float w, float h){
     pushMatrix();
-    translate(x, y, 0);
-    image(thumbnails, x, y);
+    translate(tx, ty, tz);
+    image(thumbnails, w, h);
     popMatrix();
   }
   
   void displayMovie(float x, float y){
     pushMatrix();
-    translate(x, y, 0);
     image(movies, x, y);
     popMatrix();
   }
