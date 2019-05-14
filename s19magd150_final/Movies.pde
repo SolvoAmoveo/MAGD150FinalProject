@@ -18,9 +18,11 @@ class Movies {
     popMatrix();
   }
   
-  void displayMovie(float x, float y){
+  void displayMovie(float tx, float ty, float tz, float w, float h){
     pushMatrix();
-    image(movies, x, y);
+    translate(tx,ty,tz);
+    image(movies, w, h);
+    movies.play();
     popMatrix();
   }
 }
