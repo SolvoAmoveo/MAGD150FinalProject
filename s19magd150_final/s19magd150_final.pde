@@ -132,10 +132,10 @@ void draw() {
   if(menu == 2){
     background(0);
     fill(255);
-    rect(width/3, height/1.5, 300, 150);
-    rect(width/1.5, height/1.5, 300, 150);
-    rect(width/3, height/3, 300, 150);
-    rect(width/1.5, height/3, 300, 150);
+    //rect(width/3, height/1.5, 300, 150);
+    //rect(width/1.5, height/1.5, 300, 150);
+    //rect(width/3, height/3, 300, 150);
+    //rect(width/1.5, height/3, 300, 150);
     //for loop
     //mov[0].displayThumbnail(width/3,height/2,160,300,150);
     pushMatrix();
@@ -156,7 +156,12 @@ void draw() {
     text("Dark Phoenix", width/1.5-40, height/3-90);
     fill(168, 168, 168, 255);
     text("Dark Phoenix", width/1.5-39, height/3-89);
-    mov[0].displayThumbnail(width/12,height/3,160,300,150);
+    
+    mov[0].displayThumbnail(0,0,160,width/5.25,height/3.3);
+    mov[1].displayThumbnail(0,0,160,width/1.95,height/3.3);
+    mov[2].displayThumbnail(0,0,160,width/5.25,height/1.8);
+    // Error with last thumbnail
+    //mov[3].displayThumbnail(0,0,160,width/1.95,height/1.8);
     popMatrix();
   }
   
