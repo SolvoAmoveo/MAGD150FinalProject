@@ -131,30 +131,3 @@ void mousePressed() {
     menu = 2;
   }
 }
-
----------------------- Separate Class ----------------------------------
-import processing.video.*;
-import processing.sound.*;
-
-class Movies {
-  PImage thumbnails;
-  Movie movies;
-  float thumbnailY, thumbnailX;
-  float movieY, movieX;
-  
-  Movies(PImage thumbnail, Movie movie){
-    thumbnails = thumbnail;
-    movies = movie;
-  }
-  
-  void displayThumbnail(float x, float y){
-    thumbnailY = y;
-    thumbnailX = x;
-  }
-  
-  void displayMovie(float x, float y){
-    movieY = y;
-    movieX = x;
-  }
-}
-
