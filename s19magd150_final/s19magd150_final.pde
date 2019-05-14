@@ -138,15 +138,32 @@ void draw() {
     rect(width/1.5, height/3, 300, 150);
     //for loop
     //mov[0].displayThumbnail(width/3,height/2,160,300,150);
-    mov[0].displayThumbnail(width/3,height/2,160,width/3-150,150);
+    pushMatrix();
+    textSize(30);
+    fill(255, 198, 0, 255);
+    text("Avengers", width/3, height/1.5-90);
+    fill(208, 10, 0, 255);
+    text("Avengers", width/3+1, height/1.5-89);textSize(30);
+    fill(255);
+    text("The Incredible Hulk", width/3-135, height/3-90);
+    fill(23, 172, 0, 255);
+    text("The Incredible Hulk", width/3-134, height/3-89);
+    fill(208, 10, 0, 255);
+    text("Spiderman", width/1.5, height/1.5-90);
+    fill(64, 29, 209, 255);
+    text("Spiderman", width/1.5+1, height/1.5-89);
+    fill(255, 122, 0, 255);
+    text("Dark Phoenix", width/1.5-40, height/3-90);
+    fill(168, 168, 168, 255);
+    text("Dark Phoenix", width/1.5-39, height/3-89);
+    mov[0].displayThumbnail(width/12,height/3,160,300,150);
+    popMatrix();
   }
   
 //Playing Movie  
   if( menu == 3){
-    mov[chosenMovie].displayMovie(width,height);
-    //mov[0].displayMovie(50,50);
-    //mov[n].displayBackground();
-    //mov[0].displayMovie();
+    background(0);
+    mov[chosenMovie].displayMovie(width/2,height/2,160,width,height);
 }
 
 //Ends the recording
@@ -164,12 +181,12 @@ void mousePressed() {
     chosenMovie = 0;
     menu = 3;
   }
-  if ( mouseX > width/3-150 && mouseX < width/3+150 && mouseY > height/3-75 && mouseY < height/3+75 && menu == 2 ){
-    chosenMovie = 2;
-    menu = 3;
-  }
   if ( mouseX > width/1.5-150 && mouseX < width/1.5+150 && mouseY > height/1.5-75 && mouseY < height/1.5+75 && menu == 2 ){
     chosenMovie = 1;
+    menu = 3;
+  }
+  if ( mouseX > width/3-150 && mouseX < width/3+150 && mouseY > height/3-75 && mouseY < height/3+75 && menu == 2 ){
+    chosenMovie = 2;
     menu = 3;
   }
   if ( mouseX > width/1.5-150 && mouseX < width/1.5+150 && mouseY > height/3-75 && mouseY < height/3+75 && menu == 2 ){
@@ -183,4 +200,9 @@ void mousePressed() {
   if (mouseButton == RIGHT) {
     recordScreen = true;
   }
+}
+
+// Called every time a new frame is available to read
+void movieEvent(Movie m) {
+  m.read();
 }
